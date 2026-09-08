@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- TOM, paso inicial: contrato de controles. No renombrar sin coordinar. -->
+    <item name="taskList" type="id" />
+    <item name="emptyText" type="id" />
+    <item name="filterState" type="id" />
+    <item name="addTask" type="id" />
+    <item name="taskTitle" type="id" />
+    <item name="taskState" type="id" />
+    <item name="taskMeta" type="id" />
+    <item name="editTitle" type="id" />
+    <item name="editDescription" type="id" />
+    <item name="editDue" type="id" />
+    <item name="editAssigned" type="id" />
+    <item name="editState" type="id" />
+    <item name="creationDate" type="id" />
+</resources>
