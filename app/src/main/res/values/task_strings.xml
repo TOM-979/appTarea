@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="tasks_heading">Mis tareas</string>
+<string name="tasks_subheading">Organiza tu día, una tarea a la vez</string>
+<string name="new_task">+ Nueva tarea</string>
+<string name="filter_label">Filtrar por estado</string>
+<string name="no_tasks">No hay tareas en esta vista.\nPulsa + Nueva tarea para empezar.</string>
+<string name="load_error">No se pudieron cargar las tareas. Cambia el filtro para reintentar.</string>
+<string name="operation_error">No se pudo completar la operación. Inténtalo nuevamente.</string>
+<string name="title_label">Título *</string>
+<string name="description_label">Descripción</string>
+<string name="state_label">Estado</string>
+<string name="due_label">Fecha de vencimiento *</string>
+<string name="due_help">Toca para elegir una fecha (año-mes-día)</string>
+<string name="assigned_label">Usuario asignado (opcional)</string>
+<string name="list_help">Toca una tarea para verla, editarla, cambiar su estado o eliminarla.</string>
+</resources>
