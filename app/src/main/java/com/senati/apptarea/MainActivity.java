@@ -5,10 +5,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -16,26 +16,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
 
 /**
  * TOM: acciones y coordinación. SQL queda en TaskDb; diseños en XML.
  */
 public class MainActivity extends AppCompatActivity {
-
     private static final String KEY_FILTER = "filter";
     private static final String TAG_EDITOR = "editor";
-
     // Compartido: una recarga después de rotar espera a la escritura anterior.
     private static final ExecutorService WORKER = Executors.newSingleThreadExecutor();
-
     private TaskDb db;
     private TaskAdapter adapter;
     private Spinner filter;
     private TextView empty;
+    private ProgressBar progressBar;
+    private TextView progressLabel;
     private int requestVersion;
 
     @Override
@@ -60,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
 
         ListView list = findViewById(R.id.taskList);
         empty = findViewById(R.id.emptyText);
+        progressBar = findViewById(R.id.progressBar);
+        progressLabel = findViewById(R.id.progressLabel);
 
         list.setAdapter(adapter);
         list.setEmptyView(empty);
@@ -108,11 +109,14 @@ public class MainActivity extends AppCompatActivity {
 
         WORKER.execute(() -> {
             try {
-                List<Task> result = db.list(state);
+                List<Task> all = db.list(null);
+                List<Task> result = (state == null) ? all
+                        : all.stream().filter(t -> state.equals(t.state)).collect(Collectors.toList());
                 runOnUiThread(() -> {
                     if (isFinishing() || isDestroyed() || version != requestVersion) return;
                     empty.setText(R.string.no_tasks);
                     adapter.submit(result);
+                    updateProgress(all);
                 });
             } catch (Exception e) {
                 runOnUiThread(() -> {
@@ -124,10 +128,19 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void updateProgress(List<Task> all) {
+        int total = all.size();
+        long done = all.stream().filter(t -> Task.STATES[2].equals(t.state)).count();
+        int percent = total == 0 ? 0 : (int) (done * 100 / total);
+        progressBar.setProgress(percent);
+        progressLabel.setText(total == 0 ? "Sin tareas todavía"
+                : done + " de " + total + " tareas completadas (" + percent + "%)");
+    }
+
     private void actions(Task t) {
         String[] options = new String[]{"Ver / editar", "Cambiar estado", "Eliminar"};
 
-        new AlertDialog.Builder(this)
+        new AlertDialog.Builder(this, R.style.OnsenDialog)
                 .setTitle(t.title)
                 .setItems(options, (dialog, which) -> {
                     if (which == 0) {
@@ -142,17 +155,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showChangeStateDialog(Task t) {
-        new AlertDialog.Builder(this)
+        new AlertDialog.Builder(this, R.style.OnsenDialog)
                 .setTitle("Cambiar estado")
-                .setItems(Task.STATES, (d, index) ->
-                        mutate(() -> db.setState(t.id, Task.STATES[index]))
-                )
+                .setItems(Task.STATES, (dialog, index) -> {
+                    String newState = Task.STATES[index];
+                    mutate(() -> db.setState(t.id, newState));
+                    if (Task.STATES[2].equals(newState)) {
+                        Toast.makeText(this, "¡Tarea completada! 🎉", Toast.LENGTH_SHORT).show();
+                    }
+                })
                 .setNegativeButton("Cancelar", null)
                 .show();
     }
 
     private void showDeleteConfirmationDialog(Task t) {
-        new AlertDialog.Builder(this)
+        new AlertDialog.Builder(this, R.style.OnsenDialog)
                 .setTitle("¿Eliminar tarea?")
                 .setMessage("Se eliminará “" + t.title + "”. Esta acción no se puede deshacer.")
                 .setNegativeButton("Cancelar", null)

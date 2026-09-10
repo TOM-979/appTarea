@@ -103,7 +103,7 @@ public final class TaskEditorDialog extends DialogFragment {
         // DatePicker para la fecha limite
         editDue.setOnClickListener(v -> showDatePicker());
 
-        return new AlertDialog.Builder(requireContext())
+        return new AlertDialog.Builder(requireContext(), R.style.OnsenDialog)
                 .setTitle(original == null ? "Nueva tarea" : "Editar tarea")
                 .setView(form)
                 .setNegativeButton("Cancelar", null)

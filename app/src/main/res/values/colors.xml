@@ -2,4 +2,27 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="onsen_ink">#1F3328</color>
+    <color name="onsen_text_secondary">#5C6B5E</color>
+    <color name="onsen_primary">#2F4B3C</color>
+    <color name="onsen_track">#DCE3DA</color>
+
+    <color name="card_pending_bg">#F3EFE6</color>
+    <color name="card_pending_border">#8C8368</color>
+    <color name="chip_pending_bg">#E4DEC9</color>
+    <color name="chip_pending_text">#5C5433</color>
+
+    <color name="card_progress_bg">#F7E4D9</color>
+    <color name="card_progress_border">#C0533B</color>
+    <color name="chip_progress_bg">#F0C4A8</color>
+    <color name="chip_progress_text">#8A3B1F</color>
+
+    <color name="card_done_bg">#EDF1E4</color>
+    <color name="card_done_border">#6B8F71</color>
+    <color name="chip_done_bg">#B9D6B8</color>
+    <color name="chip_done_text">#1F4D2C</color>
+
+    <color name="overdue_border">#B23A2E</color>
+    <color name="overdue_text">#B23A2E</color>
 </resources>

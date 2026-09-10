@@ -1,7 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.AppTarea" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+    <style name="Theme.AppTarea" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/onsen_primary</item>
+        <item name="colorOnPrimary">@android:color/white</item>
+        <item name="colorPrimaryContainer">@color/card_done_bg</item>
+        <item name="android:colorBackground">@color/onsen_track</item>
+        <item name="colorSurface">@color/card_pending_bg</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="OnsenDialog" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="android:windowBackground">@drawable/bg_dialog_onsen</item>
+        <item name="android:textColorPrimary">@color/onsen_ink</item>
+        <item name="android:textColorSecondary">@color/onsen_text_secondary</item>
+        <item name="colorPrimary">@color/onsen_primary</item>
+        <item name="colorAccent">@color/onsen_primary</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 </resources>

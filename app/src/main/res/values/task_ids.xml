@@ -14,4 +14,6 @@
     <item name="editAssigned" type="id" />
     <item name="editState" type="id" />
     <item name="creationDate" type="id" />
+    <item name="stateChip" type="id" />
+    <item name="taskStateIcon" type="id" />
 </resources>
